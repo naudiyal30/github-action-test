@@ -46,3 +46,6 @@ jobs:
 
     - name: Permission granted
       run: gcloud compute ssh payment-service --project test-gcp-services-346407 --zone us-west1-a
+      
+    - name: script
+      run: cat etc/os-info

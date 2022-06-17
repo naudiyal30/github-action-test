@@ -45,4 +45,4 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0
 
     - name: Permission granted
-      run: gcloud compute ssh 35.197.48.187
+      run: gcloud compute ssh payment-service --project test-gcp-services-346407 --zone us-west1-a

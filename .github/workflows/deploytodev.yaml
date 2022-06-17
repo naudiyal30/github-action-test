@@ -50,8 +50,17 @@ jobs:
     - name: Install sshpass
       run: sudo apt-get install sshpass
     
-    - name: SSH in compute vm
-      run: sshpass -f key.pub ssh payment-service@35.197.48.187
+  #  - name: SSH in compute vm
+  #    run: sshpass -f key.pub ssh payment-service@35.197.48.187
+      
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+       host: 35.197.48.187
+       username: payment-service
+       key: ${{ secrets.KEY }}
+       port: 7778
+       script: whoami
     
     - name: Startup script
       run: ./home/jatinnaudiyal2305/startup.sh

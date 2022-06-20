@@ -15,9 +15,10 @@ jobs:
       uses: victorargento/pm2-deployment@main
       with:
        remote-path: "/home/jatin_naudiyal/fdi-payment-service"
+       
        host: 35.233.191.155
        username: jatinnaudiyal2305
        port: 22
-       password: Jatin@12345
+       password: ${{ secrets.PUBLIC_KEY }}
        pm2-id: "api"
        script: whoami 

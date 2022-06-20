@@ -17,4 +17,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: sh deploy.sh
+          port: 3004
+          script: whoami

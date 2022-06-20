@@ -26,6 +26,7 @@ jobs:
         uses: victorargento/pm2-deployment@main
         with:
           host: ${{ secrets.HOST }}
+          port: 3004
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |

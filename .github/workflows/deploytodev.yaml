@@ -18,6 +18,6 @@ jobs:
        host: 35.233.191.155
        username: jatinnaudiyal2305
        port: 3004
-       password: ""
+       password: ${{ secrets.KEY }}
        pm2-id: "api"
        script: whoami 

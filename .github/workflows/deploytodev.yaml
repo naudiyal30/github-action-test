@@ -7,7 +7,6 @@ on:
 
   workflow_dispatch:
 
-# Environment variables available to all jobs and steps in workflow
 env:
   SERVICE_NAME: ${{ github.event.repository.name }}
   PROJECT_ID: test-gcp-services-346407

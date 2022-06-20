@@ -25,6 +25,7 @@ jobs:
       - name: Deploy app
         uses: victorargento/pm2-deployment@main
         with:
+          remote-path: "/deployment/api"
           host: ${{ secrets.HOST }}
           port: 3004
           username: ${{ secrets.USERNAME }}

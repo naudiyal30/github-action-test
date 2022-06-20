@@ -7,9 +7,6 @@ on:
 
 env:
   PROJECT_ID: test-gcp-services-346407
-  GCE_INSTANCE: payment-service
-  GCE_INSTANCE_ZONE: us-west1-a
-  KEY: AAAAB3NzaC1yc2EAAAADAQABAAABAQDA680Krdx8oIgIoJRVnQhCuKShhS9F4E/Zm2j1V4Bvro0MDn/8VfDvgh75uvDL3toggspAAozDmjNX0OeBbdf6MG4D1Wuu9g8/X7WrmGAyPKa1PSiBFPRJNkOM0ibedFSxvjpj7/aRXOSO7hFAhG8rDC8mVVZYo/aTPxj6z6LUoHsSp1HOGxxQsf3mir6TMITCrxRspAdMLJ9c5pFQQg+4YTRRNDg76rMjRth/wtz26GpWx0jnxFWwvszjnIGbjPTdXrl54fB8UNWnRc7oqmIzmb6P6pmDPwEtfoAyBAXtsEOU/0FyoJagnth1O+ZwZjAOk/7+lK4Rwhq7jdoC1a0b
 
 jobs:
   setup-build-publish-deploy:
@@ -44,6 +41,3 @@ jobs:
 
     - name: Permission granted
       run: gcloud compute ssh payment-service --project test-gcp-services-346407 --zone us-west1-a --command "bash script.sh"
-
-
-

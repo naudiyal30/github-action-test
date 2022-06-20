@@ -1,39 +1,20 @@
-name: Build and Deploy - DEV
+name: Deploying
 
 on:
   push:
     branches:
-      - testt
-
-  workflow_dispatch:
-
-env:
-  SERVICE_NAME: ${{ github.event.repository.name }}
-  PROJECT_ID: test-gcp-services-346407
-  COMMIT_SHA: ${{ github.sha }}
+      - develop
 
 jobs:
-  setup-build-dev:
-    name: Setup, Build, and Deploy
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-      # Get the code
-      - name: Checkout
-        uses: actions/checkout@v2
-  
-      - name: Deploy app
-        uses: victorargento/pm2-deployment@main
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
         with:
-          remote-path: "/deployment/api"
           host: ${{ secrets.HOST }}
-          port: 3004
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            cd /backend-project-folder
-            sudo git stash
-            sudo GIT_SSH_COMMAND="ssh -i ~/.ssh/authorized_keys" git pull origin dev
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            npm install
-            pm2 restart 0
+          key: ${{ secrets.KEY }}
+          script: sh deploy.sh

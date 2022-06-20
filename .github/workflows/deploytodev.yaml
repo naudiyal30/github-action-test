@@ -1,53 +1,41 @@
-name: Build and Deploy to Google Compute Engine
+name: Build and Deploy - DEV
 
 on:
   push:
     branches:
-    - 'main'
+      - main
 
+  workflow_dispatch:
+
+# Environment variables available to all jobs and steps in workflow
 env:
+  SERVICE_NAME: ${{ github.event.repository.name }}
   PROJECT_ID: test-gcp-services-346407
-  GCE_INSTANCE: payment-service
-  GCE_INSTANCE_ZONE: us-west1-a
+  COMMIT_SHA: ${{ github.sha }}
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  setup-build-dev:
+    name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
-
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    # Configure Workload Identity Federation and generate an access token.
-   # - id: 'auth'
-   #   name: 'Authenticate to Google Cloud'
-    #  uses: 'google-github-actions/auth@v0'
-    #  with:
-    #    workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-    #    service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
-
-    # Alternative option - authentication via credentials json
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
-      with:
-         credentials_json: ${{ secrets.SA_KEY }}
-
-    # Setup gcloud CLI
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
-
-    - name: Permission granted
-      run: chmod 777 /key.pub
-    
-    - name: SSH in compute vm
-      run: ssh -i /key.pub payment-service@35.197.48.187
-    
-    - name: Startup script
-      run: ./home/jatinnaudiyal2305/startup.sh
-     
+      # Get the code
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Deploy app
+        uses: victorargento/pm2-deployment@main
+        with:
+          remote-path: "/deployment/api"
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: 2080
+          password: ${{ secrets.PASSWORD }}
+          pm2-id: "api"
+          script: |
+            cd /backend-project-folder
+            sudo git stash
+            sudo GIT_SSH_COMMAND="ssh -i ~/.ssh/authorized_keys" git pull origin dev
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm install
+            pm2 restart 0

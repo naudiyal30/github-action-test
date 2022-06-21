@@ -22,3 +22,4 @@ jobs:
        port: 22
        password: Jatin@12345
        pm2-id: "api"
+       script: sh deploy.sh

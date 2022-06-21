@@ -16,7 +16,7 @@ jobs:
     - name: Deploy app
       uses: victorargento/pm2-deployment@main
       with:
-       remote-path: "/home/jatin_naudiyal/fdi-payment-service"
+       remote-path: "/home/jatinnaudiyal2305/jatin-naudiyal"
        host: 35.197.48.187
        username: jatinnaudiyal2305
        port: 22

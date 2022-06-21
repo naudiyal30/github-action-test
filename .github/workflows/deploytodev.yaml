@@ -10,15 +10,15 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
      
-    steps: 
+    steps:
+    - uses: actions/checkout@v3
+  
     - name: Deploy app
       uses: victorargento/pm2-deployment@main
       with:
        remote-path: "/home/jatin_naudiyal/fdi-payment-service"
-       
-       host: 35.233.191.155
+       host: 35.197.48.187
        username: jatinnaudiyal2305
        port: 22
-       password: ${{ secrets.PUBLIC_KEY }}
+       password: Jatin@12345
        pm2-id: "api"
-       script: whoami 

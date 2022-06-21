@@ -15,6 +15,6 @@ jobs:
        with:
         host: 35.197.48.187
         username: jatinnaudiyal2305
-        key: Jatin@12345
+        password: Jatin@12345
         port: 22
         script: whoami
